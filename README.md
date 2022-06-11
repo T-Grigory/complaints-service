@@ -11,3 +11,8 @@ To install Complaints Service run the command: *make setup*
 ### Start
 ***
 To run the program Complaints Service enters the command: *make start*
+
+### View Complaints Service on Heroku
+***
+> URL app: https://complaints-service-2022.herokuapp.com
+
