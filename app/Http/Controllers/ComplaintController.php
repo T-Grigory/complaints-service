@@ -43,12 +43,10 @@ class ComplaintController extends Controller
             $request->session()->flash('error', __('flash.complaint.create.error'));
             return back()->withInput();
         }
-        if (is_null($complaint)) {
-            $complaint = new Complaint();
-        }
 
-        $complaint->fill($data);
-        $complaint->save();
+        $newComplaint = new Complaint();
+        $newComplaint->fill($data);
+        $newComplaint->save();
 
         return redirect()->route('complaints.index');
     }
