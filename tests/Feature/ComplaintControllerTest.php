@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Client;
 use App\Models\Complaint;
 use App\Models\ComplaintReason;
 use App\Models\Polyclinic;
@@ -15,7 +16,9 @@ class ComplaintControllerTest extends TestCase
 
         Polyclinic::factory(10)->create();
         ComplaintReason::factory(10)->create();
+        Client::factory(1)->create();
     }
+
     public function testIndex(): void
     {
         $this->get(route('complaints.index'))
@@ -30,12 +33,20 @@ class ComplaintControllerTest extends TestCase
 
     public function testStore(): void
     {
+        $data = [
+            'polyclinic_id' => Polyclinic::all()->random()->id,
+            'reason_id' => ComplaintReason::all()->random()->id,
+            'text' => 'text text text',
+        ];
+        $formData = [
+            'phone' => '+7(923)-668-4539',
+            'fullname' => 'Ivanov Ivan Petrovich',
+            ...$data,
+        ];
 
-        $data = Complaint::factory()->make()->toArray();
-
-        $this->post(route('complaints.store', $data))
-             ->assertRedirect(route('complaints.index'))
-             ->assertSessionHasNoErrors();
+        $this->post(route('complaints.store', $formData))
+            ->assertRedirect(route('complaints.index'))
+            ->assertSessionHasNoErrors();
         $this->assertDatabaseHas('complaints', $data);
     }
 

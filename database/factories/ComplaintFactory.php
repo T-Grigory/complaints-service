@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Client;
 use App\Models\ComplaintReason;
 use App\Models\Polyclinic;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -19,8 +20,7 @@ class ComplaintFactory extends Factory
     public function definition()
     {
         return [
-            'fullname' => $this->faker->name(),
-            'phone' => '+79236684531',
+            'client_id' => Client::all()->random()->id,
             'polyclinic_id' => Polyclinic::all()->random()->id,
             'reason_id' => ComplaintReason::all()->random()->id,
             'text' => $this->faker->text()

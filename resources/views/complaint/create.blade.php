@@ -11,4 +11,9 @@
     @include('complaint.form')
     {{ Form::submit('Создать', ['class' => 'btn btn-primary mt-3']) }}
     {{ Form::close() }}
+    <script>
+        $(document).ready(function(){
+            $('.phone').inputmask('+7(999)-999-9999');
+        });
+    </script>
 @endsection

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Complaint;
 use App\Models\ComplaintReason;
 use App\Models\Polyclinic;
+use App\Models\Client;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
@@ -31,20 +32,26 @@ class ComplaintController extends Controller
     {
         $data = $this->validate($request, [
             'fullname' => 'required|max:255',
-            'phone' => 'required|regex:/^\+7[0-9]{10}$/',
+            'phone' => 'required|regex:/^\+7\([0-9]{3}\)-[0-9]{3}-[0-9]{4}$/',
             'polyclinic_id' => 'required',
             'reason_id' => 'required',
             'text' => 'required|max:255',
         ]);
 
-        $complaint = Complaint::where('phone', $data['phone'])->first();
+        $client = Client::where('phone', $data['phone'])->first();
 
-        if (!is_null($complaint) && $complaint->fullname !== $data['fullname']) {
+        if ($client && $client->fullname !== $data['fullname']) {
             $request->session()->flash('error', __('flash.complaint.create.error'));
             return back()->withInput();
         }
 
-        $newComplaint = new Complaint();
+        if (!$client) {
+            $client = new Client();
+            $client->fill($data);
+            $client->save();
+        }
+
+        $newComplaint = new Complaint(['client_id' => $client->id]);
         $newComplaint->fill($data);
         $newComplaint->save();
 

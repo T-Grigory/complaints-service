@@ -13,13 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('complaints', function (Blueprint $table) {
+        Schema::create('clients', function (Blueprint $table) {
             $table->id();
             $table->string('fullname');
-            $table->string('phone', 12)->unique();
-            $table->foreignId('polyclinic_id')->constrained('polyclinics');
-            $table->foreignId('reason_id')->constrained('complaint_reasons');
-            $table->string('text');
+            $table->string('phone', 16)->unique();
             $table->timestamps();
         });
     }
@@ -31,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('complaints');
+        Schema::dropIfExists('clients');
     }
 };

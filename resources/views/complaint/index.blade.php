@@ -15,12 +15,12 @@
             @foreach($complaints as $complaint)
                 <tr class="align-middle">
                     <td>№ {{$complaint->id}}</td>
-                    <td>{{$complaint->fullname}}</td>
+                    <td>{{$complaint->client->fullname}}</td>
                     <td>{{$complaint->reason->name}}</td>
                     <td>{{$complaint->created_at->format('d.m.Y')}}</td>
                     <td><a  class="btn btn-secondary" href="{{route('complaints.show', $complaint)}}">Посмотреть обращение</a></td>
                 </tr>
             @endforeach
         </tbody>
-    </table>
+    </table>    
 @endsection

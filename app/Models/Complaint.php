@@ -10,7 +10,7 @@ class Complaint extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['fullname', 'phone', 'polyclinic_id', 'reason_id', 'text'];
+    protected $fillable = ['client_id', 'polyclinic_id', 'reason_id', 'text'];
 
     public function reason(): BelongsTo
     {
@@ -20,5 +20,10 @@ class Complaint extends Model
     public function polyclinic(): BelongsTo
     {
         return $this->belongsTo(Polyclinic::class);
+    }
+
+    public function client(): BelongsTo
+    {
+        return $this->belongsTo(Client::class);
     }
 }

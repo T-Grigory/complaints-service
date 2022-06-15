@@ -9,7 +9,7 @@
 </div>
 <div class="form-group mb-3">
     <label for="phone">Телефон:</label>
-    <input type="tel" class="form-control @error('phone') is-invalid @enderror" name="phone" id="phone" placeholder="+79683122213" pattern="^+7[0-9]{10}" value="{{old('phone')}}">
+    <input type="tel" class="phone form-control @error('phone') is-invalid @enderror" name="phone" id="phone" placeholder="+7(___)-___-____" pattern="^+7[0-9]{10}" value="{{old('phone')}}">
     @error('phone')
         <span class="invalid-feedback" role="alert">
                 <strong>{{ __($message) }}</strong>
